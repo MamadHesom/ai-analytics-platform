@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: analytics-platform-api
+server:
+  port: ${SERVER_PORT:8081}
+  servlet:
+    context-path: /api
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+analytics:
+  jwt:
+    secret: ${JWT_SECRET:change-this-development-secret-to-a-strong-256-bit-value}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+  cors-origins: ${CORS_ORIGINS:http://localhost:5500,http://localhost:3000}

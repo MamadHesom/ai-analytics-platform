@@ -1,0 +1,21 @@
+services:
+  analytics-api:
+    build:
+      context: ./python-backend
+      dockerfile: Dockerfile
+    image: ai-analytics-platform/api:local
+    env_file:
+      - .env
+    environment:
+      MODEL_ARTIFACT_PATH: /app/artifacts/regression_pipeline.joblib
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./python-backend/artifacts:/app/artifacts
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health/live')"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped

@@ -1,0 +1,3 @@
+const API_BASE = window.SIGNALFORGE_API || 'http://localhost:8081/api';
+async function apiRequest(path, options={}) { const token=localStorage.getItem('signalforge-token'); const response=await fetch(`${API_BASE}${path}`,{...options,headers:{'Content-Type':'application/json',...(token?{Authorization:`Bearer ${token}`}:{}) ,...(options.headers||{})}}); if(!response.ok) throw new Error(`Request failed (${response.status})`); return response.json(); }
+async function createPipeline(name='Revenue anomaly scan', strategy='anomaly-detection'){return apiRequest('/pipelines',{method:'POST',body:JSON.stringify({name,strategy,parameters:{source:'warehouse',window:'30d'}})});}
