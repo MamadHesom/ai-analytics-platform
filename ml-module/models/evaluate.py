@@ -7,9 +7,10 @@ import json
 from pathlib import Path
 
 import joblib
-from models.train_model import build_demo_dataset
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
+
+from models.train_model import build_demo_dataset
 
 
 def evaluate(artifact_path: Path, n_samples: int = 1000, random_state: int = 42) -> dict[str, float]:
